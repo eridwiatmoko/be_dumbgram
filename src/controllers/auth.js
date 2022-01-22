@@ -93,9 +93,11 @@ exports.register = async (req, res) => {
     res.status(200).send({
       status: "success...",
       data: {
-        fullName: newUser.fullName,
-        username: newUser.username,
-        token,
+        user: {
+          fullName: newUser.fullName,
+          username: newUser.username,
+          token,
+        },
       },
     });
   } catch (error) {

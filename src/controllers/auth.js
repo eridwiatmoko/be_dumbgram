@@ -83,6 +83,7 @@ exports.register = async (req, res) => {
     });
 
     const dataToken = {
+      id: newUser.id,
       fullName: newUser.fullName,
       username: newUser.username,
     };
@@ -149,6 +150,7 @@ exports.login = async (req, res) => {
     }
 
     const dataToken = {
+      id: userExist.id,
       fullName: userExist.fullName,
       username: userExist.username,
       email: userExist.email,

@@ -44,15 +44,18 @@ exports.updateUser = async (req, res) => {
   try {
     const { id } = req.params;
 
-    await profile.update(req.body, {
-      where: {
-        id,
-      },
-    });
+    console.log(req.file);
+    await profile.update(
+      { ...req.body, image: req.file.filename },
+      {
+        where: {
+          idUser: id,
+        },
+      }
+    );
 
     res.send({
       status: "success",
-      message: `Update user id: ${id} finished`,
       data: req.body,
     });
   } catch (error) {

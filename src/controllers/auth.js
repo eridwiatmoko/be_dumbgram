@@ -1,5 +1,5 @@
 // import model
-const { user } = require("../../models");
+const { user, profile } = require("../../models");
 
 // import joi validation
 const joi = require("joi");
@@ -75,15 +75,18 @@ exports.register = async (req, res) => {
     // hash password from request with salt
     const hashedPassword = await bcrypt.hash(req.body.password, salt);
 
-    const newUser = await user.create({
-      email: req.body.email,
-      username: req.body.username,
-      password: hashedPassword,
-      fullName: req.body.fullName,
-    });
+    const newUser = await user.create(
+      {
+        email: req.body.email,
+        username: req.body.username,
+        password: hashedPassword,
+        fullName: req.body.fullName,
+        profile: {},
+      },
+      { include: { model: profile, as: "profile" } }
+    );
 
     const dataToken = {
-      id: newUser.id,
       fullName: newUser.fullName,
       username: newUser.username,
     };
@@ -150,7 +153,6 @@ exports.login = async (req, res) => {
     }
 
     const dataToken = {
-      id: userExist.id,
       fullName: userExist.fullName,
       username: userExist.username,
       email: userExist.email,

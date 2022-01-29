@@ -30,7 +30,7 @@ router.post("/register", register);
 router.post("/login", login);
 
 router.get("/users", getUsers);
-router.patch("/user/:id", auth, updateUser);
+router.patch("/user/:id", auth, uploadFile("image"), updateUser);
 router.delete("/user/:id", deleteUser);
 router.get("/followers/:id", getFollowers);
 router.get("/following/:id", getFollowing);
